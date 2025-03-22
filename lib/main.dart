@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:rentease/screens/welcome_screen/welcome_page.dart';
-import 'widgets/widget_tree.dart';
 
 void main() {
   runApp(const MyApp());
