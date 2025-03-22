@@ -8,10 +8,11 @@ class LoginPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: BackgroundColor.bgcolor,
         iconTheme: IconThemeData(
-          color: Colors.teal[800],
+          color: BackgroundColor.button2,
         ), // Set the back button color to teal
       ),
-      backgroundColor: Colors.teal[50], // Light teal background for a soft look
+      backgroundColor:
+          BackgroundColor.bgcolor, // Light teal background for a soft look
       body: SafeArea(
         child: Center(
           child: Padding(
@@ -27,7 +28,7 @@ class LoginPage extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
-                      color: Colors.teal[800],
+                      color: BackgroundColor.textbold,
                     ),
                   ),
                 ),
@@ -36,7 +37,10 @@ class LoginPage extends StatelessWidget {
                 Center(
                   child: Text(
                     "Login to continue",
-                    style: TextStyle(fontSize: 18, color: Colors.teal[600]),
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: BackgroundColor.textlight,
+                    ),
                   ),
                 ),
                 SizedBox(height: 30),
@@ -88,7 +92,7 @@ class LoginPage extends StatelessWidget {
                   width: double.infinity,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.teal[700],
+                      backgroundColor: BackgroundColor.button,
                       padding: EdgeInsets.symmetric(vertical: 14),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15),

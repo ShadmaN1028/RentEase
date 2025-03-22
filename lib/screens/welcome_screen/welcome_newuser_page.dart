@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:rentease/data/constants.dart';
 
 class WelcomeNewuserPage extends StatelessWidget {
   const WelcomeNewuserPage({super.key});
 
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor: BackgroundColor.bgcolor,
+        iconTheme: IconThemeData(color: BackgroundColor.button2),
+      ),
+      backgroundColor: BackgroundColor.bgcolor,
       body: Center(
         child: SingleChildScrollView(
           child: Padding(
@@ -24,17 +29,17 @@ class WelcomeNewuserPage extends StatelessWidget {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 30,
-                    color: Colors.purple,
+                    color: BackgroundColor.textbold,
                   ),
                 ),
-                SizedBox(height: 5),
+                SizedBox(height: 20),
                 FittedBox(
                   child: Text(
-                    'Where renting meets innovation',
+                    '"Where renting meets innovation"',
                     style: TextStyle(
                       fontWeight: FontWeight.w100,
                       fontSize: 20,
-                      color: Colors.white54,
+                      color: BackgroundColor.textlight,
                       fontStyle: FontStyle.italic,
                     ),
                   ),

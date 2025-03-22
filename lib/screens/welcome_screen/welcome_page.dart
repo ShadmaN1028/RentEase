@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:rentease/data/constants.dart';
 import 'package:rentease/screens/login_pages/login_page.dart';
 import 'package:rentease/screens/welcome_screen/welcome_newuser_page.dart';
 
@@ -9,7 +10,7 @@ class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.teal[50],
+      backgroundColor: BackgroundColor.bgcolor,
       body: Center(
         child: SingleChildScrollView(
           child: Padding(
@@ -19,7 +20,7 @@ class WelcomePage extends StatelessWidget {
               children: [
                 //lotties animation for the Landing page
                 Lottie.asset('assets/lotties/home.json', height: 400),
-                SizedBox(height: 100),
+                SizedBox(height: 90),
                 FittedBox(
                   child: Text(
                     'RentEase',
@@ -27,7 +28,7 @@ class WelcomePage extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                       fontSize: 50,
                       letterSpacing: 50,
-                      color: Colors.teal,
+                      color: BackgroundColor.textbold,
                     ),
                   ),
                 ),
@@ -47,7 +48,7 @@ class WelcomePage extends StatelessWidget {
                   style: FilledButton.styleFrom(
                     minimumSize: Size(double.infinity, 50),
                     backgroundColor:
-                        Colors.teal[700], // Set button color to teal[700]
+                        BackgroundColor.button, // Set button color to teal[700]
                   ),
                   child: Text(
                     'Get Started',
@@ -77,7 +78,7 @@ class WelcomePage extends StatelessWidget {
                   child: Text(
                     'Login',
                     style: TextStyle(
-                      color: Colors.teal[700],
+                      color: BackgroundColor.textlight,
                     ), // Ensure text is visible
                   ),
                 ),
