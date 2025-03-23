@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:rentease/data/constants.dart';
+import 'package:rentease/screens/login_pages/signup_page.dart';
 
 class WelcomeNewuserPage extends StatelessWidget {
   const WelcomeNewuserPage({super.key});
@@ -45,22 +46,23 @@ class WelcomeNewuserPage extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 30),
-                // FilledButton(
-                //   onPressed: () {
-                //     Navigator.push(
-                //       context,
-                //       MaterialPageRoute(
-                //         builder: (context) {
-                //           //return LoginPage(title: 'Login');
-                //         },
-                //       ),
-                //     );
-                //   },
-                //   style: ElevatedButton.styleFrom(
-                //     minimumSize: Size(double.infinity, 50),
-                //   ),
-                //   child: Text('Register'),
-                // ),
+                FilledButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return SignupPage();
+                        },
+                      ),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: Size(double.infinity, 50),
+                    backgroundColor: BackgroundColor.button,
+                  ),
+                  child: Text('Register'),
+                ),
               ],
             ),
           ),

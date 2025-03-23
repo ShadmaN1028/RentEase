@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rentease/data/constants.dart';
+import 'package:rentease/screens/login_pages/reset_password.dart';
+import 'package:rentease/screens/login_pages/signup_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -105,7 +107,16 @@ class _LoginPageState extends State<LoginPage> {
                 Align(
                   alignment: Alignment.centerRight,
                   child: TextButton(
-                    onPressed: () {}, // TODO: Implement Forgot Password
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return ResetPassword();
+                          },
+                        ),
+                      );
+                    },
                     child: Text(
                       "Forgot Password?",
                       style: TextStyle(color: Colors.teal[700]),
@@ -145,7 +156,14 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       TextButton(
                         onPressed: () {
-                          // TODO: Navigate to Signup Page
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return SignupPage();
+                              },
+                            ),
+                          );
                         },
                         child: Text(
                           "Sign Up",
