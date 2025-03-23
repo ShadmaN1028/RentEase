@@ -88,8 +88,11 @@ class _SignupPageState extends State<SignupPage> {
                     TextFormField(
                       decoration: InputDecoration(
                         labelText: "First Name",
-                        labelStyle: TextStyle(color: Colors.teal[700]),
-                        prefixIcon: Icon(Icons.person, color: Colors.teal[700]),
+                        labelStyle: TextStyle(color: BackgroundColor.textinput),
+                        prefixIcon: Icon(
+                          Icons.person,
+                          color: BackgroundColor.textinput,
+                        ),
                         filled: true,
                         fillColor: Colors.white,
                         border: OutlineInputBorder(
@@ -97,14 +100,18 @@ class _SignupPageState extends State<SignupPage> {
                           borderSide: BorderSide.none,
                         ),
                       ),
+                      style: TextStyle(color: BackgroundColor.textinput),
                     ),
                     SizedBox(height: 15),
                     // Last Name Field
                     TextFormField(
                       decoration: InputDecoration(
                         labelText: "Last Name",
-                        labelStyle: TextStyle(color: Colors.teal[700]),
-                        prefixIcon: Icon(Icons.person, color: Colors.teal[700]),
+                        labelStyle: TextStyle(color: BackgroundColor.textinput),
+                        prefixIcon: Icon(
+                          Icons.person,
+                          color: BackgroundColor.textinput,
+                        ),
                         filled: true,
                         fillColor: Colors.white,
                         border: OutlineInputBorder(
@@ -112,14 +119,18 @@ class _SignupPageState extends State<SignupPage> {
                           borderSide: BorderSide.none,
                         ),
                       ),
+                      style: TextStyle(color: BackgroundColor.textinput),
                     ),
                     SizedBox(height: 15),
                     // Email Field
                     TextFormField(
                       decoration: InputDecoration(
                         labelText: "Email",
-                        labelStyle: TextStyle(color: Colors.teal[700]),
-                        prefixIcon: Icon(Icons.email, color: Colors.teal[700]),
+                        labelStyle: TextStyle(color: BackgroundColor.textinput),
+                        prefixIcon: Icon(
+                          Icons.email,
+                          color: BackgroundColor.textinput,
+                        ),
                         filled: true,
                         fillColor: Colors.white,
                         border: OutlineInputBorder(
@@ -127,6 +138,7 @@ class _SignupPageState extends State<SignupPage> {
                           borderSide: BorderSide.none,
                         ),
                       ),
+                      style: TextStyle(color: BackgroundColor.textinput),
                     ),
                     SizedBox(height: 15),
                     // Password Field
@@ -134,8 +146,11 @@ class _SignupPageState extends State<SignupPage> {
                       obscureText: true,
                       decoration: InputDecoration(
                         labelText: "Password",
-                        labelStyle: TextStyle(color: Colors.teal[700]),
-                        prefixIcon: Icon(Icons.lock, color: Colors.teal[700]),
+                        labelStyle: TextStyle(color: BackgroundColor.textinput),
+                        prefixIcon: Icon(
+                          Icons.lock,
+                          color: BackgroundColor.textinput,
+                        ),
                         filled: true,
                         fillColor: Colors.white,
                         border: OutlineInputBorder(
@@ -143,14 +158,18 @@ class _SignupPageState extends State<SignupPage> {
                           borderSide: BorderSide.none,
                         ),
                       ),
+                      style: TextStyle(color: BackgroundColor.textinput),
                     ),
                     SizedBox(height: 15),
                     // Phone Field
                     TextFormField(
                       decoration: InputDecoration(
                         labelText: "Phone",
-                        labelStyle: TextStyle(color: Colors.teal[700]),
-                        prefixIcon: Icon(Icons.phone, color: Colors.teal[700]),
+                        labelStyle: TextStyle(color: BackgroundColor.textinput),
+                        prefixIcon: Icon(
+                          Icons.phone,
+                          color: BackgroundColor.textinput,
+                        ),
                         filled: true,
                         fillColor: Colors.white,
                         border: OutlineInputBorder(
@@ -158,6 +177,7 @@ class _SignupPageState extends State<SignupPage> {
                           borderSide: BorderSide.none,
                         ),
                       ),
+                      style: TextStyle(color: BackgroundColor.textinput),
                       keyboardType: TextInputType.phone,
                     ),
                     SizedBox(height: 15),
@@ -165,8 +185,11 @@ class _SignupPageState extends State<SignupPage> {
                     TextFormField(
                       decoration: InputDecoration(
                         labelText: "Address",
-                        labelStyle: TextStyle(color: Colors.teal[700]),
-                        prefixIcon: Icon(Icons.home, color: Colors.teal[700]),
+                        labelStyle: TextStyle(color: BackgroundColor.textinput),
+                        prefixIcon: Icon(
+                          Icons.home,
+                          color: BackgroundColor.textinput,
+                        ),
                         filled: true,
                         fillColor: Colors.white,
                         border: OutlineInputBorder(
@@ -174,16 +197,17 @@ class _SignupPageState extends State<SignupPage> {
                           borderSide: BorderSide.none,
                         ),
                       ),
+                      style: TextStyle(color: BackgroundColor.textinput),
                     ),
                     SizedBox(height: 15),
                     // NID Field
                     TextFormField(
                       decoration: InputDecoration(
                         labelText: "NID No",
-                        labelStyle: TextStyle(color: Colors.teal[700]),
+                        labelStyle: TextStyle(color: BackgroundColor.textinput),
                         prefixIcon: Icon(
                           Icons.credit_card,
-                          color: Colors.teal[700],
+                          color: BackgroundColor.textinput,
                         ),
                         filled: true,
                         fillColor: Colors.white,
@@ -192,6 +216,7 @@ class _SignupPageState extends State<SignupPage> {
                           borderSide: BorderSide.none,
                         ),
                       ),
+                      style: TextStyle(color: BackgroundColor.textinput),
                       keyboardType: TextInputType.number,
                     ),
                     SizedBox(height: 15),
@@ -199,8 +224,11 @@ class _SignupPageState extends State<SignupPage> {
                     TextFormField(
                       decoration: InputDecoration(
                         labelText: "Occupation",
-                        labelStyle: TextStyle(color: Colors.teal[700]),
-                        prefixIcon: Icon(Icons.work, color: Colors.teal[700]),
+                        labelStyle: TextStyle(color: BackgroundColor.textinput),
+                        prefixIcon: Icon(
+                          Icons.work,
+                          color: BackgroundColor.textinput,
+                        ),
                         filled: true,
                         fillColor: Colors.white,
                         border: OutlineInputBorder(
@@ -208,6 +236,7 @@ class _SignupPageState extends State<SignupPage> {
                           borderSide: BorderSide.none,
                         ),
                       ),
+                      style: TextStyle(color: BackgroundColor.textinput),
                     ),
                     SizedBox(height: 20),
                     SizedBox(

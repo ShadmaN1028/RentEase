@@ -76,8 +76,13 @@ class _LoginPageState extends State<LoginPage> {
                 TextField(
                   decoration: InputDecoration(
                     labelText: "Email",
-                    labelStyle: TextStyle(color: Colors.teal[700]),
-                    prefixIcon: Icon(Icons.email, color: Colors.teal[700]),
+                    labelStyle: TextStyle(
+                      color: BackgroundColor.textinput,
+                    ), // Updated color
+                    prefixIcon: Icon(
+                      Icons.email,
+                      color: BackgroundColor.textinput,
+                    ), // Updated color
                     filled: true,
                     fillColor: Colors.white,
                     border: OutlineInputBorder(
@@ -85,6 +90,7 @@ class _LoginPageState extends State<LoginPage> {
                       borderSide: BorderSide.none,
                     ),
                   ),
+                  style: TextStyle(color: BackgroundColor.textinput),
                 ),
                 SizedBox(height: 20),
                 // Password Input Field
@@ -92,8 +98,13 @@ class _LoginPageState extends State<LoginPage> {
                   obscureText: true,
                   decoration: InputDecoration(
                     labelText: "Password",
-                    labelStyle: TextStyle(color: Colors.teal[700]),
-                    prefixIcon: Icon(Icons.lock, color: Colors.teal[700]),
+                    labelStyle: TextStyle(
+                      color: BackgroundColor.textinput,
+                    ), // Updated color
+                    prefixIcon: Icon(
+                      Icons.lock,
+                      color: BackgroundColor.textinput,
+                    ), // Updated color
                     filled: true,
                     fillColor: Colors.white,
                     border: OutlineInputBorder(
@@ -101,6 +112,7 @@ class _LoginPageState extends State<LoginPage> {
                       borderSide: BorderSide.none,
                     ),
                   ),
+                  style: TextStyle(color: BackgroundColor.textinput),
                 ),
                 SizedBox(height: 10),
                 // Forgot Password Option

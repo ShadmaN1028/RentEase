@@ -47,8 +47,11 @@ class _ForgotPasswordPageState extends State<ResetPassword> {
                   controller: _emailController,
                   decoration: InputDecoration(
                     labelText: "Email",
-                    labelStyle: TextStyle(color: Colors.teal[700]),
-                    prefixIcon: Icon(Icons.email, color: Colors.teal[700]),
+                    labelStyle: TextStyle(color: BackgroundColor.textinput),
+                    prefixIcon: Icon(
+                      Icons.email,
+                      color: BackgroundColor.textinput,
+                    ),
                     filled: true,
                     fillColor: Colors.white,
                     border: OutlineInputBorder(
@@ -56,6 +59,7 @@ class _ForgotPasswordPageState extends State<ResetPassword> {
                       borderSide: BorderSide.none,
                     ),
                   ),
+                  style: TextStyle(color: BackgroundColor.textinput),
                 ),
                 SizedBox(height: 20),
                 SizedBox(
