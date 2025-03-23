@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:rentease/data/constants.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  bool isOwner = true; // Default to Owner Login
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -11,8 +20,7 @@ class LoginPage extends StatelessWidget {
           color: BackgroundColor.button2,
         ), // Set the back button color to teal
       ),
-      backgroundColor:
-          BackgroundColor.bgcolor, // Light teal background for a soft look
+      backgroundColor: BackgroundColor.bgcolor, // Light teal background
       body: SafeArea(
         child: Center(
           child: Padding(
@@ -41,6 +49,24 @@ class LoginPage extends StatelessWidget {
                       fontSize: 18,
                       color: BackgroundColor.textlight,
                     ),
+                  ),
+                ),
+                SizedBox(height: 30),
+                //check owner and tenant
+                Center(
+                  child: SegmentedButton<bool>(
+                    segments: const <ButtonSegment<bool>>[
+                      ButtonSegment<bool>(value: true, label: Text('Owner')),
+                      ButtonSegment<bool>(value: false, label: Text('Tenant')),
+                    ],
+                    selected: {isOwner},
+                    onSelectionChanged: (Set<bool> newSelection) {
+                      setState(() {
+                        isOwner =
+                            newSelection
+                                .first; // Update isOwner with the new selected value
+                      });
+                    },
                   ),
                 ),
                 SizedBox(height: 30),
