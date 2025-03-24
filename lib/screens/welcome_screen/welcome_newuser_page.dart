@@ -6,6 +6,7 @@ import 'package:rentease/screens/login_pages/signup_page.dart';
 class WelcomeNewuserPage extends StatelessWidget {
   const WelcomeNewuserPage({super.key});
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -22,7 +23,10 @@ class WelcomeNewuserPage extends StatelessWidget {
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(15),
-                  child: Lottie.asset('assets/lotties/home.json', height: 400),
+                  child: Lottie.asset(
+                    'assets/lotties/welcome.json',
+                    height: 400,
+                  ),
                 ),
                 SizedBox(height: 20),
                 Text(
@@ -48,7 +52,7 @@ class WelcomeNewuserPage extends StatelessWidget {
                 SizedBox(height: 30),
                 FilledButton(
                   onPressed: () {
-                    Navigator.push(
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                         builder: (context) {

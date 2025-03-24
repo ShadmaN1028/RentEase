@@ -10,6 +10,7 @@ class ResetPassword extends StatefulWidget {
 
 class _ForgotPasswordPageState extends State<ResetPassword> {
   final _emailController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -23,75 +24,96 @@ class _ForgotPasswordPageState extends State<ResetPassword> {
         child: Center(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "Forgot Password?",
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                    color: BackgroundColor.textbold,
-                  ),
-                ),
-                SizedBox(height: 10),
-                Text(
-                  "Enter your email to reset your password",
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: BackgroundColor.textlight,
-                  ),
-                ),
-                SizedBox(height: 30),
-                TextField(
-                  controller: _emailController,
-                  decoration: InputDecoration(
-                    labelText: "Email",
-                    labelStyle: TextStyle(color: BackgroundColor.textinput),
-                    prefixIcon: Icon(
-                      Icons.email,
-                      color: BackgroundColor.textinput,
-                    ),
-                    filled: true,
-                    fillColor: Colors.white,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15),
-                      borderSide: BorderSide.none,
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Forgot Password?",
+                    style: TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                      color: BackgroundColor.textbold,
                     ),
                   ),
-                  style: TextStyle(color: BackgroundColor.textinput),
-                ),
-                SizedBox(height: 20),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: BackgroundColor.button,
-                      padding: EdgeInsets.symmetric(vertical: 14),
-                      shape: RoundedRectangleBorder(
+                  SizedBox(height: 10),
+                  Text(
+                    "Enter your email to reset your password",
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: BackgroundColor.textlight,
+                    ),
+                  ),
+                  SizedBox(height: 30),
+                  TextFormField(
+                    controller: _emailController,
+                    decoration: InputDecoration(
+                      labelText: "Email",
+                      labelStyle: TextStyle(color: BackgroundColor.textinput),
+                      prefixIcon: Icon(
+                        Icons.email,
+                        color: BackgroundColor.textinput,
+                      ),
+                      filled: true,
+                      fillColor: Colors.white,
+                      errorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15),
+                        borderSide: BorderSide(
+                          color: Color.fromRGBO(213, 113, 114, 1),
+                          width: 2,
+                        ),
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: BorderSide.none,
                       ),
                     ),
-                    onPressed: () {
-                      // TODO: Implement password reset logic
+                    style: TextStyle(color: BackgroundColor.textinput),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your email';
+                      }
+                      if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
+                        return 'Please enter a valid email';
+                      }
+                      return null;
                     },
-                    child: Text(
-                      "Reset Password",
-                      style: TextStyle(fontSize: 18, color: Colors.white),
+                  ),
+                  SizedBox(height: 20),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: BackgroundColor.button,
+                        padding: EdgeInsets.symmetric(vertical: 14),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                      ),
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          // TODO: Implement password reset logic
+                        }
+                      },
+                      child: Text(
+                        "Reset Password",
+                        style: TextStyle(fontSize: 18, color: Colors.white),
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(height: 15),
-                TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: Text(
-                    "Back to Login",
-                    style: TextStyle(color: Colors.teal[500]),
+                  SizedBox(height: 15),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text(
+                      "Back to Login",
+                      style: TextStyle(color: Colors.teal[500]),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
