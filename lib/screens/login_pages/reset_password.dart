@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rentease/data/constants.dart';
+import 'package:rentease/utils/constants.dart';
 
 class ResetPassword extends StatefulWidget {
   const ResetPassword({super.key});

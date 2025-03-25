@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rentease/data/constants.dart';
+import 'package:rentease/screens/test_login/test_login_owner.dart';
+import 'package:rentease/screens/test_login/test_login_tenant.dart';
+import 'package:rentease/utils/constants.dart';
 import 'package:rentease/providers/auth_provider.dart';
 import 'package:rentease/screens/login_pages/reset_password.dart';
 import 'package:rentease/screens/login_pages/signup_page.dart';
@@ -265,11 +267,47 @@ class _LoginPageState extends State<LoginPage> {
                             borderRadius: BorderRadius.circular(15),
                           ),
                         ),
-                        onPressed: () {
+                        onPressed: () async {
                           if (_formKey.currentState!.validate()) {
-                            print(_emailController.text);
-                            print(_passwordController.text);
-                            // TODO: Implement Login Logic
+                            String email = _emailController.text;
+                            String password = _passwordController.text;
+
+                            AuthProvider authProvider =
+                                Provider.of<AuthProvider>(
+                                  context,
+                                  listen: false,
+                                );
+
+                            bool isLoggedIn = await authProvider.login(
+                              email,
+                              password,
+                            );
+
+                            if (isLoggedIn) {
+                              // Navigate to home or dashboard
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return Provider.of<AuthProvider>(
+                                          context,
+                                          listen: false,
+                                        ).isLoginOwner
+                                        ? TestLoginScreenOwner()
+                                        : TestLoginScreenTenant();
+                                  },
+                                ),
+                              );
+                            } else {
+                              // Show error message
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    authProvider.errorMessage ?? "Login failed",
+                                  ),
+                                ),
+                              );
+                            }
                           }
                         },
                         child: Text(

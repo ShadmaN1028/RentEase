@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:rentease/models/user_model.dart';
+import 'package:rentease/repositories/auth_repository.dart';
 
 class AuthProvider extends ChangeNotifier {
   bool _isOwner = true;
@@ -43,5 +45,48 @@ class AuthProvider extends ChangeNotifier {
   void setShowPasswordLogin(bool value) {
     _showPasswordLogin = value;
     notifyListeners();
+  }
+
+  final AuthRepository _authRepository = AuthRepository();
+  bool _isLoading = false;
+
+  bool get isLoading => _isLoading;
+
+  Future<String> signup(UserModel user, bool isOwner) async {
+    _isLoading = true;
+    notifyListeners();
+
+    try {
+      var response = await _authRepository.signup(user, isOwner);
+      _isLoading = false;
+      notifyListeners();
+      return response.data["message"];
+    } catch (e) {
+      _isLoading = false;
+      notifyListeners();
+      return "Signup failed: $e";
+    }
+  }
+
+  bool _isLoadingLogin = false;
+  String? errorMessage;
+
+  Future<bool> login(String email, String password) async {
+    _isLoadingLogin = true;
+    notifyListeners();
+
+    final response = await _authRepository.login(email, password, isLoginOwner);
+
+    _isLoadingLogin = false;
+
+    if (response["success"]) {
+      // Successfully logged in
+      notifyListeners();
+      return true;
+    } else {
+      errorMessage = response["message"];
+      notifyListeners();
+      return false;
+    }
   }
 }

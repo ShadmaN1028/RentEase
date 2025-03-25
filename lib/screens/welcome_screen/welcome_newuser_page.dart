@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:rentease/data/constants.dart';
+import 'package:rentease/utils/constants.dart';
 import 'package:rentease/screens/login_pages/signup_page.dart';
 
 class WelcomeNewuserPage extends StatelessWidget {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:rentease/data/constants.dart';
+import 'package:rentease/models/user_model.dart';
+import 'package:rentease/utils/constants.dart';
 import 'package:rentease/providers/auth_provider.dart';
 import 'package:rentease/screens/login_pages/login_page.dart';
 
@@ -45,6 +46,49 @@ class _SignupPageState extends State<SignupPage> {
     _nidController.clear();
     _occupationController.clear();
     super.dispose();
+  }
+
+  void _signup() async {
+    if (_formKey.currentState!.validate()) {
+      final authProvider = Provider.of<AuthProvider>(context, listen: false);
+
+      UserModel user = UserModel(
+        email: _emailController.text,
+        password: _passwordController.text,
+        firstName: _firstNameController.text,
+        lastName: _lastNameController.text,
+        nid: _nidController.text,
+        permanentAddress: _addressController.text,
+        contactNumber: _phoneController.text,
+        occupation: _occupationController.text,
+      );
+
+      String responseMessage = await authProvider.signup(
+        user,
+        authProvider.isOwner,
+      );
+
+      // ScaffoldMessenger.of(
+      //   context,
+      // ).showSnackBar(SnackBar(content: Text(responseMessage)));
+
+      if (responseMessage == "Account created successfully.") {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            behavior: SnackBarBehavior.floating,
+            content: Text(
+              authProvider.isOwner
+                  ? "Signup successful as Owner!"
+                  : "Signup successful as Tenant!",
+            ),
+          ),
+        );
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => LoginPage()),
+        );
+      }
+    }
   }
 
   @override
@@ -467,33 +511,34 @@ class _SignupPageState extends State<SignupPage> {
                       },
                     ),
                     SizedBox(height: 20),
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: BackgroundColor.button,
-                          padding: EdgeInsets.symmetric(vertical: 14),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15),
+                    Consumer<AuthProvider>(
+                      builder: (context, authProvider, child) {
+                        return SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: BackgroundColor.button,
+                              padding: EdgeInsets.symmetric(vertical: 14),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                            ),
+                            onPressed: authProvider.isLoading ? null : _signup,
+                            child:
+                                authProvider.isLoading
+                                    ? CircularProgressIndicator(
+                                      color: Colors.white,
+                                    )
+                                    : Text(
+                                      "Sign Up",
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        color: Colors.white,
+                                      ),
+                                    ),
                           ),
-                        ),
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            print("First Name: ${_firstNameController.text}");
-                            print("Last Name: ${_lastNameController.text}");
-                            print("Email: ${_emailController.text}");
-                            print("Password: ${_passwordController.text}");
-                            print("Phone: ${_phoneController.text}");
-                            print("Address: ${_addressController.text}");
-                            print("NID: ${_nidController.text}");
-                            print("Occupation: ${_occupationController.text}");
-                          }
-                        },
-                        child: Text(
-                          "Sign Up",
-                          style: TextStyle(fontSize: 18, color: Colors.white),
-                        ),
-                      ),
+                        );
+                      },
                     ),
                     SizedBox(height: 15),
                     Center(

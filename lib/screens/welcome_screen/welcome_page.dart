@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:rentease/data/constants.dart';
+import 'package:rentease/utils/constants.dart';
 import 'package:rentease/screens/login_pages/login_page.dart';
 import 'package:rentease/screens/welcome_screen/welcome_newuser_page.dart';
 
