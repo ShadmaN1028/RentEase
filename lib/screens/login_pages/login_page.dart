@@ -285,7 +285,7 @@ class _LoginPageState extends State<LoginPage> {
 
                             if (isLoggedIn) {
                               // Navigate to home or dashboard
-                              Navigator.pushReplacement(
+                              Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) {
@@ -310,10 +310,19 @@ class _LoginPageState extends State<LoginPage> {
                             }
                           }
                         },
-                        child: Text(
-                          "Login",
-                          style: TextStyle(fontSize: 18, color: Colors.white),
-                        ),
+                        child:
+                            Provider.of<AuthProvider>(
+                                  context,
+                                  listen: false,
+                                ).isLoadingLogin
+                                ? CircularProgressIndicator(color: Colors.white)
+                                : Text(
+                                  "Login",
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.white,
+                                  ),
+                                ),
                       ),
                     ),
                     SizedBox(height: 20),

@@ -38,7 +38,10 @@ class AuthRepository {
       log("Email: $email, Password: $password");
       Response response = await _dio.post(
         "${ApiService.baseUrl}${endpoint}",
-        data: {"user_email": email, "user_password": password},
+        data:
+            isOwner
+                ? {"owner_email": email, "owner_password": password}
+                : {"user_email": email, "user_password": password},
       );
       log("Response Data: ${response.data}");
 
