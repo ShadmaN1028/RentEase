@@ -73,7 +73,7 @@ class BottomNavbar extends StatelessWidget {
                   label,
                   style: TextStyle(
                     color: Colors.teal,
-                    fontWeight: FontWeight.w600,
+                    fontWeight: FontWeight.bold, // Already bold
                   ),
                   overflow: TextOverflow.ellipsis,
                 ),

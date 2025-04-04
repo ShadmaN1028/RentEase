@@ -11,6 +11,7 @@ import 'package:rentease/screens/tenant/tenant_search.dart';
 import 'package:rentease/utils/constants.dart';
 // import 'package:lottie/lottie.dart';
 import 'package:rentease/widgets/bottom_navbar.dart';
+import 'package:rentease/widgets/sidebar_drawer.dart';
 
 // List<Widget> pages = [OwnerHomepage(), OwnerSearch(), OwnerNotf()];
 
@@ -32,6 +33,7 @@ class _WidgetTreeState extends State<WidgetTree> {
             ? [OwnerHomepage(), OwnerSearch(), OwnerNotf()]
             : [TenantHomepage(), TenantSearch(), TenantNotf()];
     return Scaffold(
+      drawer: SidebarDrawer(isOwner: authProvider.isLoginOwner),
       appBar: AppBar(
         title: Text('RentEase'),
         backgroundColor: BackgroundColor.bgcolor,

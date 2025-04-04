@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rentease/providers/auth_provider.dart';
+// ignore: unused_import
 import 'package:rentease/screens/welcome_screen/welcome_page.dart';
-// import 'package:rentease/widgets/widget_tree.dart';
+// ignore: unused_import
+import 'package:rentease/widgets/widget_tree.dart';
 
 void main() {
   runApp(const MyApp());
