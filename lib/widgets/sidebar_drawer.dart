@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rentease/screens/login_pages/login_page.dart';
 import 'package:rentease/screens/owner/owner_profile.dart';
+import 'package:rentease/screens/tenant/tenant_profile.dart';
 import 'package:rentease/screens/test_login/test_login_owner.dart';
 import 'package:rentease/services/api_services.dart';
 import 'package:rentease/utils/constants.dart';
@@ -194,7 +195,7 @@ class SidebarDrawer extends StatelessWidget {
             color: BackgroundColor.textbold,
           ),
         ),
-        OwnerProfile(),
+        TenantProfile(),
       ),
     ];
   }
