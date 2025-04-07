@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:rentease/screens/login_pages/login_page.dart';
 import 'package:rentease/screens/test_login/test_login_owner.dart';
