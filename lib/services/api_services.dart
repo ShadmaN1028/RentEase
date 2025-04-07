@@ -4,6 +4,7 @@ class ApiService {
   static const String baseUrl =
       "http://10.0.2.2:8000/api/v1/"; // Android Emulator Localhost
   final Dio _dio = Dio();
+  Dio get dio => _dio;
 
   Future<Response> postRequest(
     String endpoint,

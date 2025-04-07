@@ -15,6 +15,10 @@ class AuthProvider extends ChangeNotifier {
   bool _showPasswordLogin = false;
   bool get showPasswordLogin => _showPasswordLogin;
 
+  // ignore: prefer_final_fields
+  String? _token = null;
+  String? get token => _token;
+
   void setOwner(bool value) {
     _isOwner = value;
     notifyListeners();
@@ -82,6 +86,9 @@ class AuthProvider extends ChangeNotifier {
 
     if (response["success"]) {
       // Successfully logged in
+
+      _token = response["data"]["token"] ?? '';
+      print("Token: $token");
       notifyListeners();
       return true;
     } else {
@@ -89,5 +96,26 @@ class AuthProvider extends ChangeNotifier {
       notifyListeners();
       return false;
     }
+  }
+
+  bool _showPasswordCurrent = false;
+  bool get showPasswordCurrent => _showPasswordCurrent;
+  void setShowPasswordCurrent(bool value) {
+    _showPasswordCurrent = value;
+    notifyListeners();
+  }
+
+  bool _showPasswordNew1 = false;
+  bool get showPasswordNew1 => _showPasswordNew1;
+  void setShowPasswordNew1(bool value) {
+    _showPasswordNew1 = value;
+    notifyListeners();
+  }
+
+  bool _showPasswordNew2 = false;
+  bool get showPasswordNew2 => _showPasswordNew2;
+  void setShowPasswordNew2(bool value) {
+    _showPasswordNew2 = value;
+    notifyListeners();
   }
 }

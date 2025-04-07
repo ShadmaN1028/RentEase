@@ -26,6 +26,8 @@ class _LoginPageState extends State<LoginPage> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Provider.of<AuthProvider>(context, listen: false).setToNullLogin();
+      _emailController.text = "1@2.3";
+      _passwordController.text = "12345678";
     });
   }
 
@@ -269,48 +271,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                         onPressed: () async {
-                          if (_formKey.currentState!.validate()) {
-                            String email = _emailController.text;
-                            String password = _passwordController.text;
-
-                            AuthProvider authProvider =
-                                Provider.of<AuthProvider>(
-                                  context,
-                                  listen: false,
-                                );
-
-                            bool isLoggedIn = await authProvider.login(
-                              email,
-                              password,
-                            );
-
-                            if (isLoggedIn) {
-                              // Navigate to home or dashboard
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) {
-                                    // return Provider.of<AuthProvider>(
-                                    //       context,
-                                    //       listen: false,
-                                    //     ).isLoginOwner
-                                    //     ? TestLoginScreenOwner()
-                                    //     : TestLoginScreenTenant();
-                                    return WidgetTree();
-                                  },
-                                ),
-                              );
-                            } else {
-                              // Show error message
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                    authProvider.errorMessage ?? "Login failed",
-                                  ),
-                                ),
-                              );
-                            }
-                          }
+                          login();
                         },
                         child:
                             Provider.of<AuthProvider>(
@@ -367,5 +328,46 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+  }
+
+  Future<void> login() async {
+    {
+      if (_formKey.currentState!.validate()) {
+        String email = _emailController.text;
+        String password = _passwordController.text;
+
+        AuthProvider authProvider = Provider.of<AuthProvider>(
+          context,
+          listen: false,
+        );
+
+        bool isLoggedIn = await authProvider.login(email, password);
+
+        if (isLoggedIn) {
+          // Navigate to home or dashboard
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                // return Provider.of<AuthProvider>(
+                //       context,
+                //       listen: false,
+                //     ).isLoginOwner
+                //     ? TestLoginScreenOwner()
+                //     : TestLoginScreenTenant();
+                return WidgetTree();
+              },
+            ),
+          );
+        } else {
+          // Show error message
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(authProvider.errorMessage ?? "Login failed"),
+            ),
+          );
+        }
+      }
+    }
   }
 }
