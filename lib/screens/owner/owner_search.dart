@@ -4,9 +4,12 @@ import 'package:provider/provider.dart';
 import 'package:rentease/models/building_model.dart';
 import 'package:rentease/providers/auth_provider.dart';
 import 'package:rentease/screens/owner/building/add_building.dart';
+// import 'package:rentease/screens/owner/building/edit_building.dart'; // Import edit page
+import 'package:rentease/screens/owner/building/owner_flats.dart';
 import 'package:rentease/services/api_services.dart';
 import 'package:rentease/widgets/building_card.dart';
 import 'package:rentease/utils/constants.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 class OwnerSearch extends StatefulWidget {
   const OwnerSearch({super.key});
@@ -18,6 +21,7 @@ class OwnerSearch extends StatefulWidget {
 class _OwnerDashboardState extends State<OwnerSearch> {
   List<Building> buildings = [];
   List<Building> filteredBuildings = [];
+  // ignore: prefer_final_fields
   TextEditingController _searchController = TextEditingController();
   bool _isLoading = true;
 
@@ -74,15 +78,72 @@ class _OwnerDashboardState extends State<OwnerSearch> {
     }
   }
 
+  // Function to handle delete confirmation
+  void _showDeleteConfirmation(Building building) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Are you sure?'),
+          content: const Text("This action can't be undone."),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                _deleteBuilding(building.buildingId); // Call delete function
+                Navigator.of(context).pop();
+              },
+              child: const Text('Delete'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  // Function to call the API to delete the building
+  Future<void> _deleteBuilding(int buildingId) async {
+    try {
+      String? token = Provider.of<AuthProvider>(context, listen: false).token;
+      final apiService = ApiService();
+      final response = await apiService.dio.delete(
+        '${ApiService.baseUrl}/owner/building/$buildingId',
+        options: Options(headers: {'Authorization': 'Bearer $token'}),
+      );
+
+      if (response.statusCode == 200) {
+        setState(() {
+          buildings.removeWhere(
+            (building) => building.buildingId == buildingId,
+          );
+          filteredBuildings.removeWhere(
+            (building) => building.buildingId == buildingId,
+          );
+        });
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Building deleted successfully')),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Failed to delete building')),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Error deleting building: $e')));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: BackgroundColor.bgcolor,
-      // appBar: AppBar(
-      //   title: const Text("Owner Dashboard"),
-      //   backgroundColor: BackgroundColor.bgcolor,
-      //   foregroundColor: BackgroundColor.textbold,
-      // ),
       body:
           _isLoading
               ? const Center(child: CircularProgressIndicator())
@@ -94,13 +155,11 @@ class _OwnerDashboardState extends State<OwnerSearch> {
                       controller: _searchController,
                       decoration: InputDecoration(
                         labelText: "Search buildings...",
-                        labelStyle: TextStyle(
-                          color: BackgroundColor.textinput,
-                        ), // Set label text color
+                        labelStyle: TextStyle(color: BackgroundColor.textinput),
                         prefixIcon: Icon(
                           Icons.search,
                           color: BackgroundColor.textinput,
-                        ), // Set icon color
+                        ),
                         filled: true,
                         fillColor: Colors.grey[100],
                         border: OutlineInputBorder(
@@ -108,9 +167,7 @@ class _OwnerDashboardState extends State<OwnerSearch> {
                           borderSide: BorderSide.none,
                         ),
                       ),
-                      style: const TextStyle(
-                        color: Colors.teal,
-                      ), // Set input text color
+                      style: const TextStyle(color: Colors.teal),
                     ),
                     const SizedBox(height: 16),
                     Expanded(
@@ -120,14 +177,87 @@ class _OwnerDashboardState extends State<OwnerSearch> {
                                 itemCount: filteredBuildings.length,
                                 itemBuilder: (context, index) {
                                   final building = filteredBuildings[index];
-                                  return BuildingCard(
-                                    building: building,
-                                    onTap: () {
-                                      Navigator.pushNamed(
-                                        context,
-                                        '/building-detail/${building.buildingId}',
-                                      );
-                                    },
+                                  return Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 8.0,
+                                    ), // Add spacing between cards
+                                    child: Slidable(
+                                      key: ValueKey(building.buildingId),
+                                      startActionPane: ActionPane(
+                                        motion: const StretchMotion(),
+                                        children: [
+                                          SlidableAction(
+                                            onPressed: (context) {
+                                              // Navigate to edit page
+                                              // Navigator.push(
+                                              //   context,
+                                              //   MaterialPageRoute(
+                                              //     builder: (context) => EditBuildingPage(
+                                              //       building: building,
+                                              //     ),
+                                              //   ),
+                                              // );
+                                            },
+                                            backgroundColor: Colors.blue,
+                                            foregroundColor: Colors.white,
+                                            icon: Icons.edit,
+                                            label: 'Edit\nBuilding',
+                                            borderRadius: BorderRadius.circular(
+                                              15,
+                                            ),
+                                            // Rounded corners
+                                          ),
+                                        ],
+                                      ),
+                                      endActionPane: ActionPane(
+                                        motion: const StretchMotion(),
+                                        children: [
+                                          SlidableAction(
+                                            onPressed: (context) {
+                                              _showDeleteConfirmation(building);
+                                            },
+                                            backgroundColor: Colors.red,
+                                            foregroundColor: Colors.white,
+                                            icon: Icons.delete,
+                                            label: 'Delete\nBuilding',
+                                            borderRadius: BorderRadius.circular(
+                                              15,
+                                            ), // Rounded corners
+                                          ),
+                                        ],
+                                      ),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(
+                                            15,
+                                          ), // Match card's rounded corners
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.grey.withOpacity(
+                                                0.2,
+                                              ),
+                                              blurRadius: 5,
+                                              offset: const Offset(0, 3),
+                                            ),
+                                          ],
+                                        ),
+                                        child: BuildingCard(
+                                          building: building,
+                                          onTap: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder:
+                                                    (context) => OwnerFlats(
+                                                      buildingId:
+                                                          building.buildingId,
+                                                    ),
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                    ),
                                   );
                                 },
                               )

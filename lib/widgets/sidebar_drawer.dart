@@ -1,4 +1,7 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:rentease/providers/auth_provider.dart';
 import 'package:rentease/screens/login_pages/login_page.dart';
 import 'package:rentease/screens/owner/owner_profile.dart';
 import 'package:rentease/screens/tenant/tenant_profile.dart';
@@ -6,10 +9,52 @@ import 'package:rentease/screens/test_login/test_login_owner.dart';
 import 'package:rentease/services/api_services.dart';
 import 'package:rentease/utils/constants.dart';
 
-class SidebarDrawer extends StatelessWidget {
+class SidebarDrawer extends StatefulWidget {
   final bool isOwner; // Determines if the user is an owner or tenant
 
   const SidebarDrawer({super.key, required this.isOwner});
+
+  @override
+  State<SidebarDrawer> createState() => _SidebarDrawerState();
+}
+
+class _SidebarDrawerState extends State<SidebarDrawer> {
+  String fullName = '';
+
+  String email = '';
+
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchUserInfo();
+  }
+
+  Future<void> fetchUserInfo() async {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final token = authProvider.token;
+    final isOwner = authProvider.isLoginOwner;
+
+    try {
+      final response = await ApiService().dio.get(
+        '${ApiService.baseUrl}/${isOwner ? 'owner' : 'tenant'}/user-info',
+        options: Options(headers: {'Authorization': 'Bearer $token'}),
+      );
+
+      final data = response.data['data'];
+      setState(() {
+        fullName = '${data['first_name']} ${data['last_name']}';
+        email = data[isOwner ? 'owner_email' : 'user_email'];
+        isLoading = false;
+      });
+    } catch (e) {
+      print("Failed to fetch user info: $e");
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,11 +64,11 @@ class SidebarDrawer extends StatelessWidget {
           // Drawer Header
           UserAccountsDrawerHeader(
             accountName: Text(
-              "User Name",
+              isLoading ? "Loading..." : fullName,
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             accountEmail: Text(
-              "user@example.com",
+              isLoading ? "Loading..." : email,
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             currentAccountPicture: CircleAvatar(
@@ -48,7 +93,7 @@ class SidebarDrawer extends StatelessWidget {
           Expanded(
             child: ListView(
               children:
-                  isOwner
+                  widget.isOwner
                       ? _ownerMenuItems(context)
                       : _tenantMenuItems(context),
             ),
