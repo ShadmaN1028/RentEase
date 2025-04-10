@@ -35,7 +35,13 @@ class _WidgetTreeState extends State<WidgetTree> {
     return Scaffold(
       drawer: SidebarDrawer(isOwner: authProvider.isLoginOwner),
       appBar: AppBar(
-        title: Text('RentEase'),
+        title: Center(
+          child: Text(
+            'RentEase',
+            style: TextStyle(color: BackgroundColor.button2),
+          ),
+        ),
+        iconTheme: IconThemeData(color: BackgroundColor.button2),
         backgroundColor: BackgroundColor.bgcolor,
       ),
       bottomNavigationBar: BottomNavbar(isOwner: authProvider.isLoginOwner),

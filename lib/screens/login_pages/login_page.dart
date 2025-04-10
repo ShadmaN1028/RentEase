@@ -343,7 +343,7 @@ class _LoginPageState extends State<LoginPage> {
 
         if (isLoggedIn) {
           // Navigate to home or dashboard
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(
               builder: (context) {

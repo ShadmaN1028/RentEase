@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:rentease/models/building_model.dart';
 import 'package:rentease/providers/auth_provider.dart';
 import 'package:rentease/screens/owner/building/add_building.dart';
+import 'package:rentease/screens/owner/building/edit_building.dart';
 // import 'package:rentease/screens/owner/building/edit_building.dart'; // Import edit page
 import 'package:rentease/screens/owner/building/owner_flats.dart';
 import 'package:rentease/services/api_services.dart';
@@ -85,7 +86,9 @@ class _OwnerDashboardState extends State<OwnerSearch> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Are you sure?'),
-          content: const Text("This action can't be undone."),
+          content: const Text(
+            "This will also delete all the flats data of this Building. This action can't be undone.",
+          ),
           actions: <Widget>[
             TextButton(
               onPressed: () {
@@ -189,19 +192,22 @@ class _OwnerDashboardState extends State<OwnerSearch> {
                                           SlidableAction(
                                             onPressed: (context) {
                                               // Navigate to edit page
-                                              // Navigator.push(
-                                              //   context,
-                                              //   MaterialPageRoute(
-                                              //     builder: (context) => EditBuildingPage(
-                                              //       building: building,
-                                              //     ),
-                                              //   ),
-                                              // );
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder:
+                                                      (context) =>
+                                                          EditBuildingPage(
+                                                            building: building,
+                                                          ),
+                                                ),
+                                              );
                                             },
                                             backgroundColor: Colors.blue,
                                             foregroundColor: Colors.white,
                                             icon: Icons.edit,
                                             label: 'Edit\nBuilding',
+                                            autoClose: true,
                                             borderRadius: BorderRadius.circular(
                                               15,
                                             ),
@@ -220,6 +226,7 @@ class _OwnerDashboardState extends State<OwnerSearch> {
                                             foregroundColor: Colors.white,
                                             icon: Icons.delete,
                                             label: 'Delete\nBuilding',
+                                            autoClose: true,
                                             borderRadius: BorderRadius.circular(
                                               15,
                                             ), // Rounded corners
