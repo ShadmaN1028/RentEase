@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rentease/providers/auth_provider.dart';
 import 'package:rentease/screens/login_pages/login_page.dart';
+import 'package:rentease/screens/owner/tenancy/owner_application.dart';
 import 'package:rentease/screens/owner/owner_profile.dart';
+import 'package:rentease/screens/tenant/tenant_application.dart';
 import 'package:rentease/screens/tenant/tenant_profile.dart';
 import 'package:rentease/screens/test_login/test_login_owner.dart';
 import 'package:rentease/services/api_services.dart';
@@ -150,7 +152,7 @@ class _SidebarDrawerState extends State<SidebarDrawer> {
             color: BackgroundColor.textbold,
           ),
         ),
-        TestLoginScreenOwner(),
+        OwnerApplicationsPage(),
       ),
       _drawerItem(
         context,
@@ -196,9 +198,9 @@ class _SidebarDrawerState extends State<SidebarDrawer> {
       ),
       _drawerItem(
         context,
-        Icons.account_circle,
+        Icons.payment,
         Text(
-          "Owner Details",
+          "Make Payment",
           style: TextStyle(
             fontWeight: FontWeight.bold,
             color: BackgroundColor.textbold,
@@ -216,7 +218,7 @@ class _SidebarDrawerState extends State<SidebarDrawer> {
             color: BackgroundColor.textbold,
           ),
         ),
-        TestLoginScreenOwner(),
+        TenantApplicationsPage(),
       ),
       _drawerItem(
         context,

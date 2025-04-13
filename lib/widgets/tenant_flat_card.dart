@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:rentease/models/flat_model.dart';
-import 'package:rentease/screens/owner/building/edit_flat.dart';
+import 'package:rentease/screens/tenant/flat/flat_details_page.dart';
 import 'package:rentease/utils/constants.dart';
 
-class FlatCard extends StatelessWidget {
+class TenantFlatCard extends StatelessWidget {
   final Flat flat;
   static const String defaultImagePath = 'assets/images/flat3.jpeg';
-  final int buildingId;
 
-  const FlatCard({super.key, required this.flat, required this.buildingId});
+  const TenantFlatCard({super.key, required this.flat});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +33,7 @@ class FlatCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Flat Number and Status Badge
+                // Flat Number
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -52,16 +51,13 @@ class FlatCard extends StatelessWidget {
                         vertical: 4,
                       ),
                       decoration: BoxDecoration(
-                        color:
-                            flat.status == 0
-                                ? Colors.red[50]
-                                : Colors.green[50],
+                        color: Colors.teal[50],
                         borderRadius: BorderRadius.circular(4),
                       ),
                       child: Text(
-                        flat.status == 0 ? 'Vacant' : 'Rented',
+                        "Available",
                         style: TextStyle(
-                          color: flat.status == 0 ? Colors.red : Colors.green,
+                          color: Colors.teal,
                           fontWeight: FontWeight.bold,
                           fontSize: 12,
                         ),
@@ -71,7 +67,7 @@ class FlatCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
 
-                // Icons: Room, Bath, Balcony, Tenancy Type
+                // Room, Bath, Balcony, Tenancy
                 Wrap(
                   spacing: 16,
                   runSpacing: 8,
@@ -86,7 +82,7 @@ class FlatCard extends StatelessWidget {
                         ),
                         const SizedBox(width: 4),
                         Text(
-                          '${flat.rooms} ${flat.rooms == 1 ? 'room' : 'rooms'}',
+                          '${flat.rooms} ${flat.rooms == 1 || flat.rooms == 0 ? 'room' : 'rooms'}',
                           style: TextStyle(color: BackgroundColor.textlight),
                         ),
                       ],
@@ -101,7 +97,7 @@ class FlatCard extends StatelessWidget {
                         ),
                         const SizedBox(width: 4),
                         Text(
-                          '${flat.bath} ${flat.bath == 1 ? 'bath' : 'baths'}',
+                          '${flat.bath} ${flat.bath == 1 || flat.bath == 0 ? 'bath' : 'baths'}',
                           style: TextStyle(color: BackgroundColor.textlight),
                         ),
                       ],
@@ -138,12 +134,11 @@ class FlatCard extends StatelessWidget {
                     ),
                   ],
                 ),
-
                 const SizedBox(height: 16),
 
                 // Rent
                 Text(
-                  'BDT  ৳${flat.rent}/Month',
+                  'BDT ৳${flat.rent}/Month',
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -174,24 +169,16 @@ class FlatCard extends StatelessWidget {
 
                 const SizedBox(height: 16),
 
-                // Edit Button
+                // View Button
                 ElevatedButton(
-                  onPressed: () async {
-                    final result = await Navigator.push(
+                  onPressed: () {
+                    Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder:
-                            (context) =>
-                                EditFlat(flat: flat, buildingId: buildingId),
+                            (context) => FlatDetailsPage(flatId: flat.flatsId),
                       ),
                     );
-                    if (result == true) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text("Flat updated successfully"),
-                        ),
-                      );
-                    }
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: BackgroundColor.button2,
@@ -201,7 +188,7 @@ class FlatCard extends StatelessWidget {
                     ),
                     minimumSize: const Size(double.infinity, 48),
                   ),
-                  child: const Text('Edit'),
+                  child: const Text('View'),
                 ),
               ],
             ),

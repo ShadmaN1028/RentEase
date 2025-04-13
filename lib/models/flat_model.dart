@@ -10,6 +10,7 @@ class Flat {
   final String rent;
   final int tenancyType;
   final String buildingName;
+  final String? address;
 
   Flat({
     required this.flatsId,
@@ -23,21 +24,23 @@ class Flat {
     required this.rent,
     required this.tenancyType,
     required this.buildingName,
+    this.address,
   });
 
   factory Flat.fromJson(Map<String, dynamic> json) {
     return Flat(
       flatsId: json['flats_id'],
       flatNumber: json['flat_number'],
-      area: json['area'],
+      area: json['area'].toString(),
       rooms: json['rooms'],
       bath: json['bath'],
       balcony: json['balcony'],
       description: json['description'],
-      status: json['status'],
-      rent: json['rent'],
+      status: json['status'] ?? 0,
+      rent: json['rent'].toString(),
       tenancyType: json['tenancy_type'],
       buildingName: json['building_name'],
+      address: json.containsKey('address') ? json['address'] : null,
     );
   }
 }

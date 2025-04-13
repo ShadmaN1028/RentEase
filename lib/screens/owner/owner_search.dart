@@ -287,8 +287,13 @@ class _OwnerDashboardState extends State<OwnerSearch> {
           );
         },
         backgroundColor: BackgroundColor.textlight,
-        label: Text("Add Building", style: TextStyle(color: Colors.grey[100])),
-        icon: Icon(Icons.add, color: Colors.grey[100]),
+        label: const Text("", style: TextStyle(color: Colors.white)),
+        icon: Image.asset(
+          "assets/images/house.png",
+          height: 24,
+          width: 24,
+          color: Colors.white,
+        ),
       ),
     );
   }
