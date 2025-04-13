@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-// import 'package:rentease/screens/test_login/test_login_owner.dart';
-// import 'package:rentease/screens/test_login/test_login_tenant.dart';
 import 'package:rentease/utils/constants.dart';
 import 'package:rentease/providers/auth_provider.dart';
 import 'package:rentease/screens/login_pages/reset_password.dart';
@@ -26,6 +24,8 @@ class _LoginPageState extends State<LoginPage> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Provider.of<AuthProvider>(context, listen: false).setToNullLogin();
+      _emailController.text = "tenant1@tenant.com";
+      _passwordController.text = "12345678";
     });
   }
 
@@ -227,8 +227,8 @@ class _LoginPageState extends State<LoginPage> {
                           validator: (value) {
                             if (value!.isEmpty) {
                               return "Password is required";
-                            } else if (value.length < 6) {
-                              return "Password must be at least 6 characters long";
+                            } else if (value.length < 8) {
+                              return "Password must be at least 8 characters long";
                             }
                             return null;
                           },
@@ -269,48 +269,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                         onPressed: () async {
-                          if (_formKey.currentState!.validate()) {
-                            String email = _emailController.text;
-                            String password = _passwordController.text;
-
-                            AuthProvider authProvider =
-                                Provider.of<AuthProvider>(
-                                  context,
-                                  listen: false,
-                                );
-
-                            bool isLoggedIn = await authProvider.login(
-                              email,
-                              password,
-                            );
-
-                            if (isLoggedIn) {
-                              // Navigate to home or dashboard
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) {
-                                    // return Provider.of<AuthProvider>(
-                                    //       context,
-                                    //       listen: false,
-                                    //     ).isLoginOwner
-                                    //     ? TestLoginScreenOwner()
-                                    //     : TestLoginScreenTenant();
-                                    return WidgetTree();
-                                  },
-                                ),
-                              );
-                            } else {
-                              // Show error message
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                    authProvider.errorMessage ?? "Login failed",
-                                  ),
-                                ),
-                              );
-                            }
-                          }
+                          login();
                         },
                         child:
                             Provider.of<AuthProvider>(
@@ -367,5 +326,40 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+  }
+
+  Future<void> login() async {
+    {
+      if (_formKey.currentState!.validate()) {
+        String email = _emailController.text;
+        String password = _passwordController.text;
+
+        AuthProvider authProvider = Provider.of<AuthProvider>(
+          context,
+          listen: false,
+        );
+
+        bool isLoggedIn = await authProvider.login(email, password);
+
+        if (isLoggedIn) {
+          // Navigate to home or dashboard
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return WidgetTree();
+              },
+            ),
+          );
+        } else {
+          // Show error message
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(authProvider.errorMessage ?? "Login failed"),
+            ),
+          );
+        }
+      }
+    }
   }
 }
