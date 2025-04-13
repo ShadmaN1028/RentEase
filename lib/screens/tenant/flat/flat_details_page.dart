@@ -211,7 +211,8 @@ class _FlatDetailsPageState extends State<FlatDetailsPage> {
                                   flat.address!,
                                   style: const TextStyle(
                                     fontSize: 16,
-                                    color: Colors.grey,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w600,
                                   ),
                                 ),
                               ),

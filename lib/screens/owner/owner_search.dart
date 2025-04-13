@@ -146,6 +146,27 @@ class _OwnerDashboardState extends State<OwnerSearch> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return AddBuildingPage();
+              },
+            ),
+          );
+        },
+        backgroundColor: BackgroundColor.textlight,
+        shape: CircleBorder(),
+        child: Image.asset(
+          "assets/images/house.png",
+          height: 24,
+          width: 24,
+          color: Colors.white,
+        ),
+      ),
       backgroundColor: BackgroundColor.bgcolor,
       body:
           _isLoading
@@ -275,26 +296,6 @@ class _OwnerDashboardState extends State<OwnerSearch> {
                   ],
                 ),
               ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) {
-                return AddBuildingPage();
-              },
-            ),
-          );
-        },
-        backgroundColor: BackgroundColor.textlight,
-        label: const Text("", style: TextStyle(color: Colors.white)),
-        icon: Image.asset(
-          "assets/images/house.png",
-          height: 24,
-          width: 24,
-          color: Colors.white,
-        ),
-      ),
     );
   }
 }

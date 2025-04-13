@@ -17,6 +17,7 @@ class OwnerApplicationsPage extends StatefulWidget {
 class _OwnerApplicationsPageState extends State<OwnerApplicationsPage> {
   List<OwnerApplication> applications = [];
   bool isLoading = true;
+  bool isProcessing = false;
 
   @override
   void initState() {
@@ -25,6 +26,7 @@ class _OwnerApplicationsPageState extends State<OwnerApplicationsPage> {
   }
 
   Future<void> fetchApplications() async {
+    setState(() => isLoading = true);
     try {
       String? token = Provider.of<AuthProvider>(context, listen: false).token;
       final response = await Dio().get(
@@ -44,51 +46,52 @@ class _OwnerApplicationsPageState extends State<OwnerApplicationsPage> {
         });
       }
     } catch (e) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text("Error: $e")));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Error loading applications: ${e.toString()}"),
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Colors.red,
+        ),
+      );
     } finally {
       setState(() => isLoading = false);
     }
   }
 
-  Future<void> approveApplication(int appId) async {
+  Future<void> _handleApplicationAction(int appId, String action) async {
+    setState(() => isProcessing = true);
     try {
       String? token = Provider.of<AuthProvider>(context, listen: false).token;
-      final response = await Dio().post(
-        '${ApiService.baseUrl}/owner/approve-application/$appId',
-        options: Options(headers: {"Authorization": "Bearer $token"}),
-      );
-      if (response.data['success']) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(const SnackBar(content: Text("Application approved")));
-        fetchApplications(); // Refresh
-      }
-    } catch (e) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text("Error: $e")));
-    }
-  }
+      final endpoint =
+          action == 'approve' ? 'approve-application' : 'deny-application';
 
-  Future<void> rejectApplication(int appId) async {
-    try {
-      String? token = Provider.of<AuthProvider>(context, listen: false).token;
       final response = await Dio().post(
-        '${ApiService.baseUrl}/owner/deny-application/$appId',
+        '${ApiService.baseUrl}/owner/$endpoint/$appId',
         options: Options(headers: {"Authorization": "Bearer $token"}),
       );
+
       if (response.data['success']) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(const SnackBar(content: Text("Application denied")));
-        fetchApplications(); // Refresh
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              "Application ${action == 'approve' ? 'approved' : 'denied'}",
+            ),
+            behavior: SnackBarBehavior.floating,
+            backgroundColor: action == 'approve' ? Colors.green : Colors.orange,
+          ),
+        );
+        await fetchApplications();
       }
     } catch (e) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text("Error: $e")));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Error: ${e.toString()}"),
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Colors.red,
+        ),
+      );
+    } finally {
+      setState(() => isProcessing = false);
     }
   }
 
@@ -98,23 +101,82 @@ class _OwnerApplicationsPageState extends State<OwnerApplicationsPage> {
       backgroundColor: BackgroundColor.bgcolor,
       appBar: AppBar(
         title: const Text("Pending Applications"),
+        centerTitle: true,
         backgroundColor: BackgroundColor.bgcolor,
+        elevation: 0,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.refresh),
+            onPressed: isLoading ? null : fetchApplications,
+            tooltip: 'Refresh',
+          ),
+        ],
       ),
       body:
           isLoading
-              ? const Center(child: CircularProgressIndicator())
+              ? Center(
+                child: CircularProgressIndicator(
+                  color: BackgroundColor.bgcolor,
+                ),
+              )
               : applications.isEmpty
-              ? const Center(child: Text("No pending applications"))
-              : ListView.builder(
-                itemCount: applications.length,
-                itemBuilder: (context, index) {
-                  final app = applications[index];
-                  return OwnerApplicationCard(
-                    app: app,
-                    onAccept: () => approveApplication(app.applicationId),
-                    onReject: () => rejectApplication(app.applicationId),
-                  );
-                },
+              ? Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.assignment_outlined,
+                      size: 64,
+                      color: Colors.grey.shade400,
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      "No Pending Applications",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey.shade600,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      "You don't have any applications to review",
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey.shade500,
+                      ),
+                    ),
+                  ],
+                ),
+              )
+              : RefreshIndicator(
+                onRefresh: fetchApplications,
+                color: BackgroundColor.bgcolor,
+                child: ListView.separated(
+                  padding: const EdgeInsets.all(16),
+                  itemCount: applications.length,
+                  separatorBuilder:
+                      (context, index) => const SizedBox(height: 16),
+                  itemBuilder: (context, index) {
+                    final app = applications[index];
+                    return OwnerApplicationCard(
+                      app: app,
+                      onAccept: () {
+                        if (!isProcessing) {
+                          _handleApplicationAction(
+                            app.applicationId,
+                            'approve',
+                          );
+                        }
+                      },
+                      onReject: () {
+                        if (!isProcessing) {
+                          _handleApplicationAction(app.applicationId, 'deny');
+                        }
+                      },
+                    );
+                  },
+                ),
               ),
     );
   }

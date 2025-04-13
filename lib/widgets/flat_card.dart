@@ -136,6 +136,26 @@ class FlatCard extends StatelessWidget {
                         ),
                       ],
                     ),
+                    Row(
+                      children: [
+                        Icon(
+                          LucideIcons.map,
+                          size: 20,
+                          color: BackgroundColor.textlight,
+                        ),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            "${flat.area} sqft",
+                            style: TextStyle(
+                              color: BackgroundColor.textlight,
+                              fontSize: 18,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
 
@@ -154,24 +174,6 @@ class FlatCard extends StatelessWidget {
                 const SizedBox(height: 8),
 
                 // Area
-                Row(
-                  children: [
-                    Icon(
-                      LucideIcons.map,
-                      size: 16,
-                      color: BackgroundColor.textlight,
-                    ),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: Text(
-                        "${flat.area} sqft",
-                        style: TextStyle(color: BackgroundColor.textlight),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                  ],
-                ),
-
                 const SizedBox(height: 16),
 
                 // Edit Button
