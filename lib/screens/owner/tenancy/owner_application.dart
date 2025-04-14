@@ -100,9 +100,13 @@ class _OwnerApplicationsPageState extends State<OwnerApplicationsPage> {
     return Scaffold(
       backgroundColor: BackgroundColor.bgcolor,
       appBar: AppBar(
-        title: const Text("Pending Applications"),
+        title: Text(
+          "Pending Applications",
+          style: TextStyle(color: BackgroundColor.button),
+        ),
         centerTitle: true,
         backgroundColor: BackgroundColor.bgcolor,
+        iconTheme: IconThemeData(color: BackgroundColor.button),
         elevation: 0,
         actions: [
           IconButton(
