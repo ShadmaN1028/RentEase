@@ -1,16 +1,49 @@
-# rentease
+# RentEase 🏠
 
-A new Flutter project.
+**RentEase** is a full-stack rental management application designed to streamline the interaction between flat owners and tenants. It provides a robust solution to manage property listings, tenancy applications, service requests, rent payments, and notifications.
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## 🔧 Features
 
-A few resources to get you started if this is your first Flutter project:
+### 🧑‍💼 For Owners
+- Add, edit, and delete buildings and flats.
+- Review tenant applications with accept/reject options.
+- View and manage current tenants.
+- Track rent payments and view outstanding balances.
+- Handle service requests from tenants.
+- Send and receive notifications.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### 👨‍💻 For Tenants
+- Browse available flats with filters.
+- Apply for tenancy with real-time status updates.
+- View current tenancy and flat details.
+- Submit and track service requests.
+- View and pay rent online.
+- Receive important notifications from owners.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+---
+
+## 📱 Tech Stack
+
+### 🔙 Backend
+- **Node.js**, **Express.js**
+- **MySQL** (with complex joins and subqueries)
+- **JWT Authentication**
+- **RESTful APIs**
+- Foreign Key relationships and transactional safety
+
+### 📱 Frontend
+#### 🔷 Flutter (Mobile App)
+- Owner & Tenant user flows
+- State management with **Provider**
+- **Dio** for HTTP requests
+- Clean and intuitive UI
+
+#### 🌐 Next.js (Admin/Owner Web Interface)
+- Shadcn UI + Tailwind CSS
+- Client-side session handling with cookies
+- Dashboard and management interfaces
+
+---
+
