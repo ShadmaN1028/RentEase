@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:rentease/models/owner_application_model.dart';
 import 'package:rentease/screens/owner/tenancy/tenant_view.dart';
-import 'package:rentease/utils/constants.dart';
 // import 'package:rentease/screens/tenant_view.dart'; // Import the TenantView page
 
 class OwnerApplicationCard extends StatelessWidget {

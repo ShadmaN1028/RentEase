@@ -3,9 +3,9 @@ import 'package:dio/dio.dart';
 import 'package:provider/provider.dart';
 import 'package:rentease/models/tenancy_info.dart';
 import 'package:rentease/providers/auth_provider.dart';
-import 'package:rentease/screens/tenant/tenant_homepage.dart';
 import 'package:rentease/services/api_services.dart';
 import 'package:rentease/utils/constants.dart';
+import 'package:rentease/widgets/widget_tree.dart';
 
 class MyFlat extends StatefulWidget {
   const MyFlat({super.key});
@@ -93,7 +93,7 @@ class _TenantFlatInfoPageState extends State<MyFlat> {
                     context,
                     MaterialPageRoute(
                       builder: (context) {
-                        return TenantHomepage();
+                        return WidgetTree();
                       },
                     ),
                   );
@@ -120,7 +120,11 @@ class _TenantFlatInfoPageState extends State<MyFlat> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("My Flat Details"),
+        title: Text(
+          "My Flat Details",
+          style: TextStyle(color: BackgroundColor.button),
+        ),
+        iconTheme: IconThemeData(color: BackgroundColor.button),
         backgroundColor: BackgroundColor.bgcolor,
         elevation: 0,
         centerTitle: true,
@@ -191,9 +195,10 @@ class _TenantFlatInfoPageState extends State<MyFlat> {
                             Expanded(
                               child: Text(
                                 "${flat.buildingName} - Flat ${flat.flatNumber}",
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
+                                  color: BackgroundColor.button,
                                 ),
                               ),
                             ),

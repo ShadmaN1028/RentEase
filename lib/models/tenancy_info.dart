@@ -11,6 +11,7 @@ class TenancyInfo {
   final String ownerLastName;
   final String contact;
   final String? description;
+  final int flatsId;
 
   TenancyInfo({
     required this.flatNumber,
@@ -25,6 +26,7 @@ class TenancyInfo {
     required this.ownerLastName,
     required this.contact,
     this.description,
+    required this.flatsId,
   });
 
   factory TenancyInfo.fromJson(Map<String, dynamic> json) {
@@ -41,6 +43,7 @@ class TenancyInfo {
       ownerLastName: json['last_name'] ?? '',
       contact: json['contact_number'] ?? '',
       description: json['description'],
+      flatsId: json['flats_id'],
     );
   }
 }

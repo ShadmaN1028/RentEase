@@ -4,8 +4,7 @@ class ApiService {
   static const String baseUrl =
       // Android Emulator Localhost
       "http://10.0.2.2:8000/api/v1/";
-  // Local Network IP
-  // "http://192.168.0.117:8000/api/v1/";
+
   final Dio _dio = Dio();
   Dio get dio => _dio;
 

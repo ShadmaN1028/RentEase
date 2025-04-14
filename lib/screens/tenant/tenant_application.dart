@@ -53,7 +53,12 @@ class _TenantApplicationsPageState extends State<TenantApplicationsPage> {
     return Scaffold(
       backgroundColor: BackgroundColor.bgcolor,
       appBar: AppBar(
-        title: const Text("My Applications"),
+        title: Text(
+          "My Applications",
+          style: TextStyle(color: BackgroundColor.button),
+        ),
+        centerTitle: true,
+        iconTheme: IconThemeData(color: BackgroundColor.button),
         backgroundColor: BackgroundColor.bgcolor,
       ),
       body:

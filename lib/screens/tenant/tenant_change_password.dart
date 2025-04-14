@@ -90,6 +90,7 @@ class _ChangePasswordPageState extends State<TenantChangePassword> {
         ),
         backgroundColor: BackgroundColor.bgcolor,
         iconTheme: IconThemeData(color: BackgroundColor.button2),
+        centerTitle: true,
       ),
       backgroundColor: BackgroundColor.bgcolor,
       body: SafeArea(
