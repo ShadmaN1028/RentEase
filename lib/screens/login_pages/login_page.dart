@@ -24,8 +24,8 @@ class _LoginPageState extends State<LoginPage> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Provider.of<AuthProvider>(context, listen: false).setToNullLogin();
-      _emailController.text = "tenant1@tenant.com";
-      _passwordController.text = "12345678";
+      // _emailController.text = "tenant1@tenant.com";
+      // _passwordController.text = "12345678";
     });
   }
 
