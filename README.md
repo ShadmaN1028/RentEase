@@ -40,10 +40,5 @@
 - **Dio** for HTTP requests
 - Clean and intuitive UI
 
-#### 🌐 Next.js (Admin/Owner Web Interface)
-- Shadcn UI + Tailwind CSS
-- Client-side session handling with cookies
-- Dashboard and management interfaces
-
 ---
 
