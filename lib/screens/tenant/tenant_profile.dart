@@ -160,6 +160,7 @@ class _TenantProfilePageState extends State<TenantProfile> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text(
           "Profile",
           style: TextStyle(color: BackgroundColor.textbold),

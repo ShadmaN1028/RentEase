@@ -3,9 +3,9 @@ import 'package:dio/dio.dart';
 import 'package:provider/provider.dart';
 import 'package:rentease/models/tenant_details.dart';
 import 'package:rentease/providers/auth_provider.dart';
-import 'package:rentease/screens/owner/owner_homepage.dart';
 import 'package:rentease/services/api_services.dart';
 import 'package:rentease/utils/constants.dart';
+import 'package:rentease/widgets/widget_tree.dart';
 
 class TenantDetailsPage extends StatefulWidget {
   final int tenancyId;
@@ -111,7 +111,7 @@ class _TenantDetailsPageState extends State<TenantDetailsPage> {
                     context,
                     MaterialPageRoute(
                       builder: (context) {
-                        return OwnerHomepage();
+                        return WidgetTree();
                       },
                     ),
                   );
@@ -163,8 +163,12 @@ class _TenantDetailsPageState extends State<TenantDetailsPage> {
     return Scaffold(
       backgroundColor: BackgroundColor.bgcolor,
       appBar: AppBar(
-        title: const Text("Tenant Details"),
+        title: Text(
+          "Tenant Details",
+          style: TextStyle(color: BackgroundColor.button),
+        ),
         backgroundColor: BackgroundColor.bgcolor,
+        iconTheme: IconThemeData(color: BackgroundColor.button),
         elevation: 0,
         centerTitle: true,
       ),
@@ -249,9 +253,10 @@ class _TenantDetailsPageState extends State<TenantDetailsPage> {
                         const SizedBox(height: 16),
                         Text(
                           "${tenant.firstName} ${tenant.lastName}",
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
+                            color: BackgroundColor.button,
                           ),
                         ),
                         const SizedBox(height: 4),

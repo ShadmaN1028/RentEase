@@ -4,15 +4,15 @@ import 'package:provider/provider.dart';
 import 'package:rentease/providers/auth_provider.dart';
 import 'package:rentease/screens/login_pages/login_page.dart';
 import 'package:rentease/screens/owner/payment/owner_payment.dart';
+import 'package:rentease/screens/owner/service_request/owner_service_request.dart';
 import 'package:rentease/screens/owner/tenancy/owner_application.dart';
 import 'package:rentease/screens/owner/owner_profile.dart';
 import 'package:rentease/screens/owner/tenancy/owner_tenant_list.dart';
 import 'package:rentease/screens/tenant/flat/my_flat.dart';
 import 'package:rentease/screens/tenant/payment/tenant_payment.dart';
-import 'package:rentease/screens/tenant/service_request_tenant.dart';
+import 'package:rentease/screens/tenant/service_request/tenant_all_request.dart';
 import 'package:rentease/screens/tenant/tenant_application.dart';
 import 'package:rentease/screens/tenant/tenant_profile.dart';
-import 'package:rentease/screens/test_login/test_login_owner.dart';
 import 'package:rentease/services/api_services.dart';
 import 'package:rentease/utils/constants.dart';
 
@@ -171,7 +171,7 @@ class _SidebarDrawerState extends State<SidebarDrawer> {
             color: BackgroundColor.textbold,
           ),
         ),
-        TestLoginScreenOwner(),
+        OwnerServiceRequestPage(),
       ),
       _drawerItem(
         context,
@@ -237,7 +237,7 @@ class _SidebarDrawerState extends State<SidebarDrawer> {
             color: BackgroundColor.textbold,
           ),
         ),
-        ServiceRequestTenant(),
+        TenantRequestListPage(),
       ),
       _drawerItem(
         context,

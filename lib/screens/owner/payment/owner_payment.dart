@@ -168,17 +168,14 @@ class _OwnerPaymentOverviewPageState extends State<OwnerPaymentOverviewPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Tenant Payments Overview"),
+        title: Text(
+          "Tenant Payments Overview",
+          style: TextStyle(color: BackgroundColor.button),
+        ),
         backgroundColor: BackgroundColor.bgcolor,
         elevation: 0,
         centerTitle: true,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.refresh),
-            onPressed: _isRefreshing ? null : _refreshData,
-            tooltip: 'Refresh',
-          ),
-        ],
+        iconTheme: IconThemeData(color: BackgroundColor.button),
       ),
       body: RefreshIndicator(
         onRefresh: _refreshData,
